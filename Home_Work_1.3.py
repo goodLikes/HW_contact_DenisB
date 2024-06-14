@@ -110,39 +110,7 @@ def find_contact_dialog():
     else:
         messagebox.showinfo("Найденные контакты", "Контакты не найдены.")
 
-# Функция для копирования строки между файлами
-def copy_line_between_files():
-    source_file = filedialog.askopenfilename(title="Выберите исходный файл")
-    if not source_file:
-        return
-    target_file = filedialog.askopenfilename(title="Выберите целевой файл")
-    if not target_file:
-        return
-    try:
-        line_number = int(simpledialog.askstring("Введите номер строки", "Введите номер строки для копирования:"))
-    except ValueError:
-        messagebox.showerror("Ошибка", "Номер строки должен быть числом.")
-        return
-    source_contacts = read_contacts_from_file(source_file)
-    if line_number < 1 or line_number > len(source_contacts):
-        messagebox.showerror("Ошибка", "Номер строки выходит за пределы диапазона.")
-        return
-    contact_to_copy = source_contacts[line_number - 1]
-    target_contacts = read_contacts_from_file(target_file)
-    target_contacts.append(contact_to_copy)
-    write_contacts_to_file(target_file, target_contacts)
-    messagebox.showinfo("Информация", f"Строка {line_number} скопирована из {source_file} в {target_file}.")
-    
-
-
-# Функция для загрузки контактов из файла // В разработке
-""" def load_contacts_from_file():
-    filename = filedialog.askopenfilename(title="Выберите файл с контактами", filetypes=[("Text Files", "*.txt")])
-    if filename:
-        global phonebook
-        phonebook = read_contacts_from_file(filename)
-        display_contacts()
-        messagebox.showinfo("Информация", f"Контакты из файла {filename} загружены.") """
+#######
 
 
 # Создание GUI с использованием tkinter
@@ -165,9 +133,6 @@ tk.Button(button_frame, text="Добавить контакт", command=add_cont
 tk.Button(button_frame, text="Удалить контакт", command=delete_contact_dialog).grid(row=2, column=0, pady=5)
 tk.Button(button_frame, text="Изменить контакт", command=update_contact_dialog).grid(row=3, column=0, pady=5)
 tk.Button(button_frame, text="Найти контакт", command=find_contact_dialog).grid(row=4, column=0, pady=5)
-
-""" tk.Button(button_frame, text="Добавить контакт из файла", command=load_contacts_from_file).grid(row=5, column=0, pady=5) """ #в разработке
-
 
 tk.Button(button_frame, text="Выход", command=root.quit).grid(row=6, column=0, pady=5)
 
